@@ -7,7 +7,11 @@ const store = createStore({
   state() {
     return {
       // 用户信息
-      user: {},
+      user: {
+        avatar:
+          "https://www.keaitupian.cn/cjpic/frombd/1/253/1549810122/1182497723.jpg",
+        username: "y_coder",
+      },
     };
   },
   mutations: {
