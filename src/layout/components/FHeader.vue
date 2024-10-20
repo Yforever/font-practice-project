@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <el-drawer
+  <!-- <el-drawer
     v-model="showDrawer"
     title="修改密码"
     size="35%"
@@ -78,10 +78,49 @@
         >
       </el-form-item>
     </el-form>
-  </el-drawer>
+  </el-drawer> -->
+
+  <form-drawer
+    ref="formDrawerRef"
+    title="修改密码"
+    destoryOnClass
+    @submit="onSubmit"
+  >
+    <el-form
+      ref="formRef"
+      :rules="rules"
+      :model="form"
+      label-width="80px"
+      size="small"
+    >
+      <el-form-item prop="oldPassword" label="旧密码">
+        <el-input v-model="form.oldPassword" placeholder="请输入旧密码">
+        </el-input>
+      </el-form-item>
+      <el-form-item prop="password" label="新密码">
+        <el-input
+          type="password"
+          v-model="form.password"
+          placeholder="请输入新密码"
+          show-password
+        >
+        </el-input>
+      </el-form-item>
+      <el-form-item prop="reportPassword" label="确认密码">
+        <el-input
+          type="password"
+          v-model="form.reportPassword"
+          placeholder="确认密码"
+          show-password
+        >
+        </el-input>
+      </el-form-item>
+    </el-form>
+  </form-drawer>
 </template>
 
 <script setup>
+import FormDrawer from "~/components/FormDrawer.vue";
 import {
   Fold,
   Refresh,
@@ -102,12 +141,13 @@ const { isFullscreen, toggle } = useFullscreen();
 const router = useRouter();
 const store = useStore();
 const showDrawer = ref(false);
-const loading = ref(false);
+// const loading = ref(false);
 const form = reactive({
   oldPassword: "",
   reportPassword: "",
   password: "",
 });
+const formDrawerRef = ref(null);
 
 const rules = {
   oldPassword: [{ required: true, message: "旧密码不能为空", trigger: "blur" }],
@@ -122,6 +162,8 @@ const onSubmit = () => {
     if (!valid) {
       return false;
     }
+    // 实现loading效果，通过组件之间
+    // formDrawerRef.value.showLoading()
     toast("修改密码提示", "修改密码成功，请重新登录");
     store.dispath("logout");
     router.path("/login");
@@ -134,7 +176,8 @@ const handleCommand = (c) => {
       handleLogout();
       break;
     case "rePassword":
-      showDrawer.value = true;
+      //   showDrawer.value = true;
+      formDrawerRef.value.open();
       break;
   }
 };
