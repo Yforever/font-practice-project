@@ -8,10 +8,16 @@ const routes = [
   {
     path: "/",
     component: Index,
+    meta: {
+      title: "后台首页",
+    },
   },
   {
     path: "/login",
     component: Login,
+    meta: {
+      title: "登录页",
+    },
   },
   // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
