@@ -14,3 +14,7 @@ export function getInfo() {
 export function logout() {
   return axios.post("/xxx/xxx");
 }
+
+export function changePassword(data) {
+  return axios.post("/xxx/xxx", data);
+}
