@@ -1,6 +1,7 @@
 <template>
   <div class="f-menu" :style="{ width: $store.state.asideWidth }">
     <el-menu
+      :default-active="defaultActive"
       :collapse="isCollapse"
       :collapse-transition="false"
       unique-opened
@@ -39,11 +40,14 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 const router = useRouter();
 const store = useStore();
+const route = useRoute();
+// 默认选中
+const defaultActive = ref(route.path);
 
 // 是否折叠
 const isCollapse = computed(() => !(store.state.asideWidth == "250px"));
