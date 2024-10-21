@@ -134,41 +134,16 @@ import { logout } from "~/api/manager";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { useFullscreen } from "@vueuse/core";
-import { ref, reactive } from "vue";
-
+import { useRepassword, useLogout } from "~/composables/useManager";
 // 全屏对象
 const { isFullscreen, toggle } = useFullscreen();
+const { formDrawerRef, form, rules, onSubmit, openRePasswordForm } =
+  useRepassword();
+const { handleLogout } = useLogout();
 const router = useRouter();
 const store = useStore();
-const showDrawer = ref(false);
+// const showDrawer = ref(false);
 // const loading = ref(false);
-const form = reactive({
-  oldPassword: "",
-  reportPassword: "",
-  password: "",
-});
-const formDrawerRef = ref(null);
-
-const rules = {
-  oldPassword: [{ required: true, message: "旧密码不能为空", trigger: "blur" }],
-  reportPassword: [
-    { required: true, message: "重新确认新密码", trigger: "blur" },
-  ],
-  password: [{ required: true, message: "新密码不能为空", trigger: "blur" }],
-};
-const formRef = ref(null);
-const onSubmit = () => {
-  formRef.value.validate((valid) => {
-    if (!valid) {
-      return false;
-    }
-    // 实现loading效果，通过组件之间
-    // formDrawerRef.value.showLoading()
-    toast("修改密码提示", "修改密码成功，请重新登录");
-    store.dispath("logout");
-    router.path("/login");
-  });
-};
 
 const handleCommand = (c) => {
   switch (c) {
@@ -177,26 +152,13 @@ const handleCommand = (c) => {
       break;
     case "rePassword":
       //   showDrawer.value = true;
-      formDrawerRef.value.open();
+      openRePasswordForm();
       break;
   }
 };
 
 // 刷新
 const handleRefresh = () => location.reload();
-
-function handleLogout() {
-  showModal("是否要退出登录？").then((res) => {
-    console.log("退出登录成功");
-    logout().finally(() => {
-      store.dispatch("logout");
-      // 跳转登录页
-      router.push("/login");
-      // 提示退出登录页成功
-      toast("退出登录提示", "退出登录页成功");
-    });
-  });
-}
 </script>
 
 <style>
