@@ -1,4 +1,4 @@
-import router from "~/router";
+import { router, addRoutes } from "~/router";
 import { getToken } from "~/composables/auth";
 import { toast, showFullLoading, hideFullLoading } from "~/composables/util";
 import store from "./store";
@@ -21,16 +21,48 @@ router.beforeEach(
     }
 
     // 如果用户登录了，自动获取用户信息，并存储在vuex当中
+    let hasNewRoutes = false;
     if (token) {
       // 没有完善接口暂时注释
       // await store.dispatch("getInfo");
+      // 动态添加路由
+      const menusList = [
+        {
+          name: "后台面板",
+          icon: "help",
+          children: [
+            {
+              name: "主控台",
+              icon: "home-filled",
+              frontpath: "/",
+            },
+          ],
+        },
+        {
+          name: "商城管理",
+          icon: "shopping-bag",
+          children: [
+            {
+              name: "商品管理",
+              icon: "shopping-cart-full",
+              frontpath: "/goods/list",
+            },
+            {
+              name: "分类列表",
+              icon: "menu",
+              frontpath: "/category/list",
+            },
+          ],
+        },
+      ];
+      hasNewRoutes = addRoutes(menusList);
     }
 
     // 设置页面标题
     let title = (to.meta.title ? to.meta.title : "") + "---XXX商城后台";
     document.title = title;
 
-    next();
+    hasNewRoutes ? next(to.fullPath) : next();
   }
 );
 
