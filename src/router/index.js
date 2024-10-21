@@ -3,6 +3,7 @@ import Admin from "~/layout/admin.vue";
 import Index from "~/pages/index.vue";
 import Login from "~/pages/login.vue";
 import NotFound from "~/pages/404.vue";
+import GoodList from "~/pages/goods/list.vue";
 
 // 规则对象
 const routes = [
@@ -16,6 +17,13 @@ const routes = [
         component: Index,
         meta: {
           title: "后台首页",
+        },
+      },
+      {
+        path: "/goods/list",
+        component: GoodList,
+        meta: {
+          title: "商品管理",
         },
       },
     ],
