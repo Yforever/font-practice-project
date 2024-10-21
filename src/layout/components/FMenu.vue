@@ -73,6 +73,11 @@ const asideMenus = [
         icon: "shopping-cart-full",
         frontpath: "/goods/list",
       },
+      {
+        name: "分类列表",
+        icon: "menu",
+        frontpath: "/category/list",
+      },
     ],
   },
 ];
@@ -90,5 +95,9 @@ const handlerSelect = (e) => {
   overflow-y: auto;
   overflow-x: hidden;
   @apply shadow-md fixed bg-light-50;
+}
+/* 设置菜单没有滚动条 */
+.f-menu::-webkit-scrollbar {
+  width: 0px;
 }
 </style>
