@@ -51,7 +51,7 @@ const defaultActive = ref(route.path);
 
 // 是否折叠
 const isCollapse = computed(() => !(store.state.asideWidth == "250px"));
-
+// const asideMenus = computed(() => store.state.menus);
 const asideMenus = [
   {
     name: "后台面板",
