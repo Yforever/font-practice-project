@@ -12,12 +12,18 @@ const store = createStore({
           "https://www.keaitupian.cn/cjpic/frombd/1/253/1549810122/1182497723.jpg",
         username: "y_coder",
       },
+      // 侧边宽度
+      asideWidth: "250px",
     };
   },
   mutations: {
     // 记录用户信息
     SET_USERINFO(state, user) {
       state.user = user;
+    },
+    // 展开/所起侧边
+    handleAsideWidth(state) {
+      state.asideWidth = state.asideWidth == "250px" ? "64px" : "250px";
     },
   },
   actions: {

@@ -4,7 +4,10 @@
       <el-icon class="mr-2"><eleme-filled /></el-icon>
       XXXX后台管理系统
     </span>
-    <el-icon class="icon-btn"><fold /></el-icon>
+    <el-icon class="icon-btn" @click="$store.commit('handleAsideWidth')"
+      ><fold v-if="$store.state.asideWidth == '250px'" />
+      <Expand v-else />
+    </el-icon>
     <el-tooltip effect="dark" content="刷新" placement="bottom">
       <el-icon class="icon-btn" @click="handleRefresh"><refresh /></el-icon>
     </el-tooltip>
@@ -128,6 +131,7 @@ import {
   ElemeFilled,
   ArrowDown,
   Aim,
+  Expand,
 } from "@element-plus/icons-vue";
 import { showModal, toast } from "~/composables/util";
 import { logout } from "~/api/manager";
